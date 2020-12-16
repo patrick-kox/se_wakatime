@@ -47,27 +47,35 @@ void periodic_callback()
       if (p_modify > 0) {
          shell(command);
       }
+      
+      /* Don't check if file was modified and just sent a heartbeat to wakatime
+      this is usefull when working on a file without editing it's content. 
+      */ 
+
+      // shell(command); 
+                                                                           
 
       // if the editor is opened for more than 10 minutes but no file was modified, send a hearthbeat
       // to wakatime (we assume the user is debuggin/reading the sourcecode and 
       // not editing). Enable if you want to include this or keep disabled to 
       // only count actual editing. 
 
-      /*
+
       if (p_modify == 0) {
          if (debugging >=10) {
             debugging = 0;
             shell(command);
          }
+         debugging++;
       }
-      */
+
 }
 
 void start_periodic_timer()
 {
    // Only start if it hasn't been started already.
    if (periodic_timer_handle < 0) {
-      PERIOD_IN_MINUTES := 2;          // The wakatime default time between hearthbeats is 2 minutes
+      PERIOD_IN_MINUTES := 1;          // The wakatime default time between hearthbeats is 2 minutes
       periodic_timer_handle = _set_timer(PERIOD_IN_MINUTES * 60 * 1000, periodic_callback);
    }
 }
