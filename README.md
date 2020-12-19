@@ -25,6 +25,7 @@ _note: This plugis was only tested by myself on Debian GNU/Linux. This plugin sh
 * Edit the wakatime configuration file.
 _this is a basic configuration file from wakatime_
 **Put your API key (available at [Your Wakatime account](https://wakatime.com/settings/account "your wakatime account") in this configuration file**
+
 ~~~~
 [settings]
 debug = false
@@ -74,3 +75,6 @@ If your data is now shown in wakatime, enable the debug mode and study the *.wak
 Make sure the **proxy** is setup correctly in the config file (or remove that line if you don't us a _proxy server_)
 
 You can also checkout the [Wakatime GitHub page](https://github.com/wakatime/wakatime "wakatime CLI github page") for more information on the CLI client that is used.
+
+### Note
+By the way SlickEdit works (the macro is executed before the file is created on disk), wakatime can report a file as "does not exist" and not log it. To **solve** this you can edit and save the file straight after creating it, or create the file manually (with _touch_ for example and then open it it SE).

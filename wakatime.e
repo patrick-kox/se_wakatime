@@ -37,38 +37,18 @@ void periodic_callback()
    //   buffer) 
    _str command = "/home/patrick/.local/bin/wakatime --plugin slickedit-wakatime --write --entity ":+p_buf_name;
     
-   // execute the command (you can enable debug = true in ~/.wakatime.cfg to let
-   // wakatime create a logfile (~/.wakatime.log) to check for errors. 
-   // make sure "api_key = " is set to your Wakatime private api_key 
-   // optinally set "hostname = " to your hostname so Wakatime can keep track of 
-   // what host was used to edit the files. 
+   // execute the command if the file was modified since the last time the 
+   // function was called. (~/.wakatime.log) to check for errors. make sure 
+   // "api_key = " is set to your Wakatime private api_key optinally set 
+   // "hostname = " to your hostname so Wakatime can keep track of what host was 
+   // used to edit the files. 
       
-      // check if the file was modified, and only then send a hearthbeat to wakatime
+      // check if the file was modified, and only then executes the wakatime CLI client 
+      // (if the file is not modified and wakatime is called, it won't be logged anyway).
       if (p_modify > 0) {
          shell(command);
       }
       
-      /* Don't check if file was modified and just sent a heartbeat to wakatime
-      this is usefull when working on a file without editing it's content. 
-      */ 
-
-      // shell(command); 
-                                                                           
-
-      // if the editor is opened for more than 10 minutes but no file was modified, send a hearthbeat
-      // to wakatime (we assume the user is debuggin/reading the sourcecode and 
-      // not editing). Enable if you want to include this or keep disabled to 
-      // only count actual editing. 
-
-
-      if (p_modify == 0) {
-         if (debugging >=10) {
-            debugging = 0;
-            shell(command);
-         }
-         debugging++;
-      }
-
 }
 
 void start_periodic_timer()
